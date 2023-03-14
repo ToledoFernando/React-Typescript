@@ -17,5 +17,6 @@ export interface ClimaCity {
   coord: Coord;
   temp: Temp;
   viento: Viento;
+  img: string;
   country: string;
 }

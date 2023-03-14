@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import { ClimaCity } from "../interface";
+import "../scss/Cards.scss";
 
 interface Props {
   element: ClimaCity[];
@@ -13,7 +14,7 @@ function Cards(props: Props) {
       {!props.element.length ? (
         <h1>Sin elementos</h1>
       ) : (
-        <div>
+        <div className="cards">
           {props.element.map((e: ClimaCity, index: number) => (
             <Card key={index} info={e} delete1={props.delete1} />
           ))}
