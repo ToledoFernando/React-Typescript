@@ -2,4 +2,33 @@
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
+  margin: 10px 0px;
+}
+.Sin_Elementos {
+  text-align: center;
+  padding: 30px;
+
+  h1 {
+    margin: 20px 0px;
+  }
+  img {
+    width: 80px;
+    animation: imgM 2s infinite linear;
+
+    @keyframes imgM {
+      0%,
+      30% {
+        transform: translateX(5px) translateY(3px);
+      }
+      50% {
+        transform: translateX(-5px) translateY(-3px);
+      }
+      80% {
+        transform: translateX(5px) translateY(-4px);
+      }
+      100% {
+        transform: translateX(5px) translateY(3px);
+      }
+    }
+  }
 }

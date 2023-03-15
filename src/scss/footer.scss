@@ -1,0 +1,16 @@
+.footer {
+  height: 6vh;
+  background-color: #fff;
+
+  .data {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+
+    a {
+      color: #0e0e0e;
+      text-decoration: none;
+    }
+  }
+}

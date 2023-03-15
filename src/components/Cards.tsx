@@ -12,7 +12,10 @@ function Cards(props: Props) {
   return (
     <div>
       {!props.element.length ? (
-        <h1>Sin elementos</h1>
+        <div className="Sin_Elementos">
+          <h1>Sin elementos</h1>
+          <img src="/buscar.png" alt="Buscar Info" />
+        </div>
       ) : (
         <div className="cards">
           {props.element.map((e: ClimaCity, index: number) => (
