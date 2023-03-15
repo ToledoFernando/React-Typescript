@@ -4,7 +4,7 @@ import React, {
   ChangeEventHandler,
   FormEventHandler,
 } from "react";
-import { apiKey, apiURL, setApi } from "../config.json";
+// import { apiKey, apiURL, setApi } from "../config.json";
 import Cards from "./components/Cards";
 import { ClimaCity } from "./interface";
 import l from "/l.webp";
@@ -57,9 +57,14 @@ function App() {
     e.preventDefault();
     setLoad(true);
     try {
-      const response = await fetch(`${apiURL}${nameCity}${setApi}${apiKey}`, {
-        method: "GET",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_APIURL}${nameCity}${
+          import.meta.env.VITE_SETAPI
+        }${import.meta.env.VITE_APIKEY}`,
+        {
+          method: "GET",
+        }
+      );
       console.log(response);
       if (!response.ok)
         throw Error(`${response.status} ${response.statusText}`);
