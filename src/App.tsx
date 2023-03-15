@@ -8,8 +8,8 @@ import { apiKey, apiURL, setApi } from "../config.json";
 import Cards from "./components/Cards";
 import { ClimaCity } from "./interface";
 import l from "/l.webp";
-import s from "/s.webp";
 import p from "/p.webp";
+import s from "/s.webp";
 import "./scss/App.scss";
 import Footer from "./components/footer";
 
