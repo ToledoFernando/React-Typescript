@@ -11,11 +11,14 @@ import l from "/l.webp";
 import p from "/p.webp";
 import s from "/s.webp";
 import "./scss/App.scss";
+import Footer from "./components/footer";
 
 function App() {
   const [nameCity, setNameCity] = useState<string>("");
   const [err, setErr] = useState<boolean>(true);
   const [load, setLoad] = useState<boolean>(false);
+  const [errmsg, setErrmsg] = useState<string>("");
+  const [advErr, setAdvErr] = useState<boolean>(false);
   const [climas, setClimas] = useState<Array<ClimaCity>>([]);
 
   const deleteData = (info: ClimaCity) => {
@@ -57,6 +60,9 @@ function App() {
       const response = await fetch(`${apiURL}${nameCity}${setApi}${apiKey}`, {
         method: "GET",
       });
+      console.log(response);
+      if (!response.ok)
+        throw Error(`${response.status} ${response.statusText}`);
       const json = await response.json();
       let imagen: string = "";
       let temp = Math.round((json.main.temp - 273.15) * 10) / 10;
@@ -77,9 +83,15 @@ function App() {
         country: json.sys.country,
       };
       setLoad(false);
+      setNameCity("");
       newData(result);
-    } catch (error) {
-      console.log("Error");
+    } catch (error: Error | any) {
+      setAdvErr(true);
+      setLoad(false);
+      setErrmsg(error.message);
+      setTimeout(() => {
+        setAdvErr(false);
+      }, 2500);
     }
   };
 
@@ -90,17 +102,37 @@ function App() {
 
   return (
     <div className="body">
-      <form className="form" onSubmit={buscar}>
-        <h1>Buscar una ciudad</h1>
-        <div>
-          <input id="input" type="text" onChange={handleChange} />
-          <label className={nameCity.length ? "label" : ""} htmlFor="input">
-            Nombre de la ciudad
-          </label>
-        </div>
-        <button disabled={err}>Buscar</button>
-      </form>
-      <Cards element={climas} delete1={deleteData} />
+      <div>
+        <span className={advErr ? "error" : "error errn"}>
+          <label>{errmsg}</label>
+        </span>
+        <form className="form" onSubmit={buscar}>
+          {load ? (
+            <>
+              {" "}
+              <span className="load">
+                <img src="/load.svg" alt="" />
+              </span>
+            </>
+          ) : null}
+          <div>
+            <input
+              autoComplete="off"
+              id="input"
+              type="text"
+              onChange={handleChange}
+              value={nameCity}
+            />
+            <label className={nameCity.length ? "label" : ""} htmlFor="input">
+              Nombre de la ciudad
+            </label>
+          </div>
+          <button disabled={err}>Buscar</button>
+        </form>
+        <hr className="hr" />
+        <Cards element={climas} delete1={deleteData} />
+      </div>
+      <Footer />
     </div>
   );
 }
